@@ -19,6 +19,9 @@ const step = () => {
         cmd.exec(finalResult, input).then(() => {
           cursor ++ 
           step()
+        }, (reject) => {
+          console.log(reject)
+          rl.close()
         })
       })
     }
