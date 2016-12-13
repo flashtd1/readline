@@ -7,18 +7,19 @@ let rl = null
 let cmds = []
 let cursor = 0
 
-const step = () => {
+const step = (preResult) => {
   if(cmds[cursor]) {
     let cmd = cmds[cursor]
     if(cmd.type == 'output') {
       console.log(cmd.tip)
       cursor ++
-      step()
+      step(preResult)
     } else if(cmd.type == 'handle') {
       rl.question(cmd.tip, (input) => {
-        cmd.exec(finalResult, input).then(() => {
+        cmd.exec(preResult, input).then((nextResult) => {
           cursor ++ 
-          step()
+          finalResult = nextResult
+          step(nextResult)
         }, (reject) => {
           console.log(reject)
           rl.close()
@@ -43,7 +44,7 @@ const start = (flowName) => {
     rl.on('close', () => {
       resolve(finalResult)
     })
-    step()
+    step(finalResult)
   })
 }
 
