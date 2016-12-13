@@ -8,22 +8,22 @@ const cmds = [
 	{
 		type:'handle',
 		tip:'project:',
-		exec: (finalResult, input) => {
+		exec: (preResult, input) => {
 			return new Promise(resolve => {
 				console.log(`工程名称是:${input}`)
-				finalResult['name'] = input
-				resolve()
+				preResult.name = input
+				resolve(preResult)
 			}) 
 		}
 	},
 	{
 		type:'handle',
 		tip:'author:',
-		exec: (finalResult, input) => {
+		exec: (preResult, input) => {
 			return new Promise(resolve => {
 				console.log('作者是:' + input)
-				finalResult['author'] = input
-				resolve()
+				preResult.author = input
+				resolve(preResult)
 			})
 		}
 	}
