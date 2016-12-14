@@ -1,6 +1,7 @@
 'use strict'
 
 const readline = require('readline')
+const cusError = Error()
 
 let finalResult = {}
 let rl = null
@@ -12,8 +13,20 @@ const step = (preResult) => {
     let cmd = cmds[cursor]
     if(cmd.type == 'output') {
       console.log(cmd.tip)
-      cursor ++
-      step(preResult)
+      if(cmd.exec) {
+        cmd.exec(preResult).then((nextResult) => {
+          cursor ++ 
+          finalResult = nextResult
+          step(nextResult)
+        }, (reject) => {
+          console.log(reject)
+          rl.close()
+        })
+      } else {
+        cursor ++
+        step(preResult)  
+      }
+      
     } else if(cmd.type == 'handle') {
       rl.question(cmd.tip, (input) => {
         cmd.exec(preResult, input).then((nextResult) => {
