@@ -3,7 +3,13 @@
 const cmds = [
 	{
 		type:'output',
-		tip:'init start'
+		tip:'init start',
+		exec: (preResult) => { // optional
+			return new Promise(resolve => {
+				// do something you want
+				resolve(preResult)
+			})
+		}
 	},
 	{
 		type:'handle',
