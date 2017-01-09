@@ -13,10 +13,10 @@ const cmds = [
 	},
 	{
 		type:'handle',
-		tip:'project:',
+		tip:'project name:',
 		exec: (preResult, input) => {
 			return new Promise(resolve => {
-				console.log(`工程名称是:${input}`)
+				console.log(`name:${input}`)
 				preResult.name = input
 				resolve(preResult)
 			}) 
@@ -27,7 +27,7 @@ const cmds = [
 		tip:'author:',
 		exec: (preResult, input) => {
 			return new Promise(resolve => {
-				console.log('作者是:' + input)
+				console.log('author:' + input)
 				preResult.author = input
 				resolve(preResult)
 			})
